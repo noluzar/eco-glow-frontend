@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 export const useProductStore = create((set) => ({
+
     products: [],
     product: {},
     setProducts: (products) => set({ products }),
@@ -9,7 +10,10 @@ export const useProductStore = create((set) => ({
         if(!newProduct.name || !newProduct.image || !newProduct.price) {
             return {success:false, message:"Please fill in all fields."}
         }
-        const res = await fetch("/api/products", {
+        
+    const baseUrl = import.meta.env.VITE_API_URL;
+
+        const res = await fetch(`${baseUrl}/api/products`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -21,7 +25,8 @@ export const useProductStore = create((set) => ({
         return {success:true, message:"Product created successfully."}
     },
     fetchProducts: async () => {
-        const res = await fetch("/api/products");
+        const baseUrl = import.meta.env.VITE_API_URL;
+        const res = await fetch(`${baseUrl}/api/products`);
         const data = await res.json();
         set({ products: data.data });
     },
