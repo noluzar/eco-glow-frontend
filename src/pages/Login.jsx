@@ -33,6 +33,9 @@ export const Login = () => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
+
+      console.log("Token", res);
+      
       dispatch(setCredentials({ ...res }))
       navigate('/products')
     } catch (err) {
