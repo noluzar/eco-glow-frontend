@@ -7,11 +7,13 @@ const OrderHistory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get("/api/orders/order-history", {
+        const { data } = await axios.get(`${baseUrl}/api/orders/order-history`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
